@@ -1,0 +1,19 @@
+@model XyzzyModel
+
+@{
+    ViewData["Title"] = Model.title?.Value ?? string.Empty;
+}
+
+<div id="MainPanel">
+    <div id="CenterColumn">
+        <div id="InnerCenter">
+            <div id="Header">
+                The title is: @ViewData["Title"] !!!
+            </div>
+            <div id="Content">
+                The title is dynamic but the body currently is not.
+            </div>
+            <div id="Footer"><hr class="divider">© @Model.CopyrightYear Me</div>
+        </div>
+    </div>
+</div>

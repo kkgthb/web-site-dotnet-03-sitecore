@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings> <!-- Credit https://stackoverflow.com/a/72533025 -->
+        <RootNamespace>Handwritten</RootNamespace>
+        <AssemblyName>Handwritten</AssemblyName>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.7" />
+        <PackageReference Include="Sitecore.AspNet.ExperienceEditor" Version="21.0.11" />
+        <PackageReference Include="Sitecore.AspNet.RenderingEngine" Version="21.0.11" />
+        <PackageReference Include="Sitecore.LayoutService.Client" Version="21.0.11" />
+    </ItemGroup>
+
+</Project>

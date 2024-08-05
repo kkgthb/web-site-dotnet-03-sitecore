@@ -1,0 +1,267 @@
+openapi: 3.0.3
+
+info:
+  title: Mock Sitecore Layout Service
+  description: |-
+    This is a sample Sitecore Layout Service based on the OpenAPI 3.0 specification.
+
+    Yay.
+  contact:
+    name: "Example Example"
+    email: "example@example.com"
+  version: 0.0.1
+
+tags:
+  - name: layout
+    description: The layout service
+
+paths:
+  /sitecore/api/layout/render/jss:
+    get:
+      tags:
+        - layout
+      summary: Layout of a Sitecore page
+      description: Layout details for a Sitecore page
+      operationId: renderLayoutJss
+      parameters:
+        - name: sc_site
+          in: query
+          description: Site name
+          required: true
+          schema:
+            type: string
+            default: examplesitename
+        - name: sc_apikey
+          in: query
+          description: API key
+          required: true
+          schema:
+            type: string
+            format: uuid
+            default: 00000000-0000-0000-0000-000000000000
+        - name: item
+          in: query
+          description: Page identifier
+          required: true
+          schema:
+            type: string
+            default: /red/pepperoni
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LayoutJss"
+        "500":
+          description: A server error response
+  /sitecore/api/layout/render/default:
+    get:
+      tags:
+        - layout
+      summary: Layout of a Sitecore page (default path)
+      description: Layout details for a Sitecore page (default path)
+      operationId: renderLayoutDefault
+      parameters:
+        - name: sc_site
+          in: query
+          description: Site name
+          required: true
+          schema:
+            type: string
+            default: examplesitename
+        - name: sc_apikey
+          in: query
+          description: API key
+          required: true
+          schema:
+            type: string
+            format: uuid
+            default: 00000000-0000-0000-0000-000000000000
+        - name: item
+          in: query
+          description: Page identifier
+          required: true
+          schema:
+            type: string
+            default: /red/pepperoni
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LayoutJss"
+        "500":
+          description: A server error response
+
+components:
+  schemas:
+    LayoutJss:
+      type: object
+      properties:
+        sitecore:
+          type: object
+          properties:
+            context:
+              $ref: "#/components/schemas/LayoutJssContext"
+            route:
+              $ref: "#/components/schemas/LayoutJssRoute"
+
+    LayoutJssContext:
+      type: object
+      properties:
+        pageEditing:
+          type: boolean
+          example: false
+        site:
+          type: object
+          properties:
+            name:
+              type: string
+              example: null
+        pageState:
+          type: string
+          example: normal
+        language:
+          type: string
+          example: en
+        itemPath:
+          type: string
+          example: "/sitecore/content/red/pepperoni"
+
+    LayoutJssRoute:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Home
+        displayName:
+          type: string
+          example: Home
+        fields:
+          $ref: "#/components/schemas/LayoutJssField"
+        databaseName:
+          type: string
+          example: iamadb
+        deviceId:
+          type: string
+          format: uuid
+          example: "fe5d7fdf-89c0-4d99-9aa3-b5fbd009c9f3"
+        itemId:
+          type: string
+          format: uuid
+          example: "11111111-1111-1111-1111-111111111111"
+        itemLanguage:
+          type: string
+          example: en
+        itemVersion:
+          type: integer
+          example: 1
+        layoutId:
+          type: string
+          format: uuid
+          example: "22222222-2222-2222-222222222222"
+        templateId:
+          type: string
+          format: uuid
+          example: "33333333-3333-3333-333333333333"
+        templateName:
+          type: string
+          example: "Sample Page Item Etc"
+        placeholders:
+          type: object
+          description: "Placeholders on this page (hashmap)"
+          additionalProperties:
+            type: array
+            items:
+              $ref: "#/components/schemas/LayoutJssRoutePlaceholder"
+          example:
+            placeholder2:
+              - uid: "123"
+                componentName: "world"
+                dataSource: "{55555555-5555-5555-555555555555}"
+                params: {}
+                fields:
+                  title:
+                    value: "Fabulousness"
+                  text:
+                    value: "Magnificence"
+              - uid: "456"
+                componentName: "alligator"
+                dataSource: "{66666666-6666-6666-666666666666}"
+                params: {}
+                fields:
+                  title:
+                    value: "snappy"
+                  text:
+                    value: "croc"
+
+    LayoutJssRoutePlaceholder:
+      type: array
+      description: "Components in this placeholder (array)"
+      items:
+        $ref: "#/components/schemas/LayoutJssRoutePlaceholderComponent"
+      example:
+        - uid: "123"
+          componentName: "world"
+          dataSource: "{55555555-5555-5555-555555555555}"
+          params: {}
+          fields:
+            title:
+              value: "Fabulousness"
+            subtitle:
+              value: "Magnificence"
+        - uid: "456"
+          componentName: "alligator"
+          dataSource: "{66666666-6666-6666-666666666666}"
+          params: {}
+          fields:
+            headline:
+              value: "snappy"
+            text:
+              value: "croc"
+
+    LayoutJssRoutePlaceholderComponent:
+      type: object
+      description: "Properties of this component (hashmap)"
+      properties:
+        uid:
+          type: string
+          example: "123"
+        componentName:
+          type: string
+          example: "world"
+        dataSource:
+          type: string
+          example: "{44444444-4444-4444-444444444444}"
+        params:
+          type: object
+          example: {}
+        fields:
+          $ref: "#/components/schemas/LayoutJssField"
+      example:
+        uid: "123"
+        componentName: "world"
+        dataSource: "{44444444-4444-4444-444444444444}"
+        params: {}
+        fields:
+          title:
+            value: "Fabulousness"
+          subtitle:
+            value: "Magnificence"
+
+    LayoutJssField:
+      type: object
+      additionalProperties:
+        type: object
+        properties:
+          value:
+            type: string
+            example: "field value 0"
+        example:  { value: "field value 00" }
+      example:
+        title:
+          value: "My Title"
+        text:
+          value: "My Text"
