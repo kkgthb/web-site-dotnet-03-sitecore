@@ -14,7 +14,7 @@ From the base of this repo's directory:
 # Build
 
 ```powershell
-.\.optional\handy\build-dot-net.ps1
+.\.optional-handy\build-dot-net.ps1
 ```
 
 # Run
