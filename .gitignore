@@ -1,0 +1,8 @@
+.ignoreme
+
+# Mostly ignore the ".vscode" directory, since a lot of plugins put unsafe things in it and the "settings.json" file is often filled according to personal taste.
+.vscode/*
+# But go ahead and let this repository suggest extensions and such
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
